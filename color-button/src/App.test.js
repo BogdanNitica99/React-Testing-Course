@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { logRoles } from "@testing-library/react";
-import App from "./App";
+import App, { camelCaseToSpaceColorNames } from "./App";
 
 test("button is visible and has correct initial text and color", () => {
   // Helpful when you need to see all the accessible roles on that page
@@ -73,4 +73,20 @@ test("changing colors to the button with gray for disable", () => {
 
   fireEvent.click(checkbox);
   expect(button).toHaveStyle({ backgroundColor: "blue" });
+});
+
+describe("spaces before camel-case capital letters", () => {
+  test("works for no inner capital letters", () => {
+    expect(camelCaseToSpaceColorNames("Red")).toBe("Red");
+  });
+
+  test("works for one inner capital letters", () => {
+    expect(camelCaseToSpaceColorNames("MidnightBlue")).toBe("Midnight Blue");
+  });
+
+  test("works for multiple inner capital letters", () => {
+    expect(camelCaseToSpaceColorNames("MediumVioletRed")).toBe(
+      "Medium Violet Red"
+    );
+  });
 });
