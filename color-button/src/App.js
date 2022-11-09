@@ -6,9 +6,10 @@ export function camelCaseToSpaceColorNames(colorName) {
 }
 
 function App() {
-  const [color, setColor] = useState("red");
+  const [color, setColor] = useState("MediumVioletRed");
   const [isChecked, setIsChecked] = useState(false);
-  const newColor = color === "red" ? "blue" : "red";
+  const newColor =
+    color === "MediumVioletRed" ? "MidnightBlue" : "MediumVioletRed";
 
   return (
     <div className="App">
@@ -20,7 +21,7 @@ function App() {
           }}
           disabled={isChecked}
         >
-          Change to {newColor}
+          Change to {camelCaseToSpaceColorNames(newColor)}
         </button>
 
         <input
