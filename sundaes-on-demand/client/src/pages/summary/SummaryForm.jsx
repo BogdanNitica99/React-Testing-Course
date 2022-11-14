@@ -17,7 +17,7 @@ export default function SummaryForm() {
     <span>
       I agree to
       <OverlayTrigger placement="right" overlay={popover}>
-        <span>Terms and Conditions</span>
+        <span> Terms and Conditions</span>
       </OverlayTrigger>
     </span>
   );
