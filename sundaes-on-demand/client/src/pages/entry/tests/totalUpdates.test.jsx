@@ -1,10 +1,9 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen } from "../../../test-utils/testing-library-utils";
 import userEvent from "@testing-library/user-event";
 import Options from "../Options";
-import { OrderDetailsProvider } from "../../../contexts/OrderDetails";
 
 test("checks the total value for scoops", async () => {
-  render(<Options optionType="scoops" />, { wrapper: OrderDetailsProvider });
+  render(<Options optionType="scoops" />);
 
   const user = userEvent.setup();
 
