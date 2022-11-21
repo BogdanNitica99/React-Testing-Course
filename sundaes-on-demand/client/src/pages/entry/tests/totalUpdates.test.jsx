@@ -1,14 +1,15 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Options from "../Options";
+import { OrderDetailsProvider } from "../../../contexts/OrderDetails";
 
 test("checks the total value for scoops", async () => {
-  render(<Options optionType="scoop" />);
+  render(<Options optionType="scoops" />, { wrapper: OrderDetailsProvider });
 
   const user = userEvent.setup();
 
   // check the total value to start at 0.00
-  const scoopsTotal = screen.getByText("Scoop value: $", { exact: false });
+  const scoopsTotal = screen.getByText("Scoops total", { exact: false });
   expect(scoopsTotal).toHaveTextContent("0.00");
 
   // add one vanilla scoop and check the total sum
@@ -29,5 +30,5 @@ test("checks the total value for scoops", async () => {
   await user.type(chocolateButton, "2");
 
   // 2 from vanilla and 4 from chocolate
-  expect(chocolateButton).toHaveTextContent("6.00");
+  expect(scoopsTotal).toHaveTextContent("6.00");
 });

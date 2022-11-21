@@ -28,7 +28,7 @@ export default function Options({ optionType }) {
   }
 
   const OptionComponent =
-    optionType === "scoop" ? ScoopOptions : ToppingOptions;
+    optionType === "scoops" ? ScoopOptions : ToppingOptions;
 
   const title = optionType[0].toUpperCase() + optionType.slice(1).toLowerCase();
 

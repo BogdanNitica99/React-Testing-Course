@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import Options from "../Options";
 
 test("displays image for each scoop option from server", async () => {
-  render(<Options optionType="scoop" />);
+  render(<Options optionType="scoops" />);
 
   // Get all images by role and with the alt text ending with scoop
   const scoopImages = await screen.findAllByRole("img", { name: /scoop$/i });
@@ -14,7 +14,7 @@ test("displays image for each scoop option from server", async () => {
 });
 
 test("displays image for each topping option from server", async () => {
-  render(<Options optionType="topping" />);
+  render(<Options optionType="toppings" />);
 
   // Get all images by role and with the alt text ending with topping
   // Used findAllByRole because the images are a response from the server and the functions needs to use async / await
