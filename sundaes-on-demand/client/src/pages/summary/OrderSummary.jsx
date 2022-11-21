@@ -3,7 +3,7 @@ import { formatCurrency } from "../../utilities";
 import SummaryForm from "./SummaryForm";
 
 export default function OrderSummary() {
-  const { totals, optionCounts } = useOrderDetails;
+  const { totals, optionCounts } = useOrderDetails();
 
   const scoopArray = Object.entries(optionCounts.scoops); // example: [ [ "chocolate", 2 ], [ "vanilla", 1 ] ]
   const scoopList = scoopArray.map(([key, value]) => (
@@ -22,7 +22,7 @@ export default function OrderSummary() {
       <ul>{scoopList}</ul>
       <h2>Toppings: {formatCurrency(totals.toppings)}</h2>
       <ul>{toppingList}</ul>
-      <h1>Total {totals.scoops + totals.toppings}</h1>
+
       <SummaryForm />
     </div>
   );
