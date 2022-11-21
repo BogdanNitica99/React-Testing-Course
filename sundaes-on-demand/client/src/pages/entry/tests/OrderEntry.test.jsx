@@ -9,10 +9,10 @@ import OrderEntry from "../OrderEntry";
 
 test("shows error from server", async () => {
   server.resetHandlers(
-    rest.get("http://localhost:3030/scoop", (req, res, ctx) =>
+    rest.get("http://localhost:3030/scoops", (req, res, ctx) =>
       res(ctx.status(500))
     ),
-    rest.get("http://localhost:3030/topping", (req, res, ctx) =>
+    rest.get("http://localhost:3030/toppings", (req, res, ctx) =>
       res(ctx.status(500))
     )
   );

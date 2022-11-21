@@ -7,7 +7,7 @@ test("checks the total value for scoops", async () => {
 
   const user = userEvent.setup();
 
-  // check the total value to start at 0.00
+  // check the total value starts at 0.00
   const scoopsTotal = screen.getByText("Scoops total", { exact: false });
   expect(scoopsTotal).toHaveTextContent("0.00");
 
@@ -30,4 +30,39 @@ test("checks the total value for scoops", async () => {
 
   // 2 from vanilla and 4 from chocolate
   expect(scoopsTotal).toHaveTextContent("6.00");
+});
+
+test("checks the total value for toppings", async () => {
+  render(<Options optionType="toppings" />);
+
+  const user = userEvent.setup();
+
+  //check the total value starts at 0.00
+  const toppingsTotal = screen.getByText("Toppings total", { exact: false });
+  expect(toppingsTotal).toHaveTextContent("0.00");
+
+  // check cherries topping and check the total sum
+  const cherriesCheckbox = await screen.findByRole("checkbox", {
+    name: "Cherries",
+  });
+  expect(cherriesCheckbox).not.toBeChecked();
+  await user.click(cherriesCheckbox);
+  expect(cherriesCheckbox).toBeChecked();
+
+  expect(toppingsTotal).toHaveTextContent("1.50");
+
+  // check M&M's checkbox and check the total sum
+  const mAndMCheckbox = await screen.findByRole("checkbox", {
+    name: "M&Ms",
+  });
+  await user.click(mAndMCheckbox);
+  expect(mAndMCheckbox).toBeChecked();
+
+  expect(toppingsTotal).toHaveTextContent("3.00");
+
+  // uncheck cherries topping and check the total sum
+  await user.click(cherriesCheckbox);
+  expect(cherriesCheckbox).not.toBeChecked();
+
+  expect(toppingsTotal).toHaveTextContent("1.50");
 });

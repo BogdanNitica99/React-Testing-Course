@@ -18,7 +18,7 @@ export default function Options({ optionType }) {
       .get(`http://localhost:3030/${optionType}`)
       .then((response) => setItems(response.data))
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         setError(true);
       });
   }, [optionType]);
