@@ -42,6 +42,20 @@ test("order phases for happy path", async () => {
   const confirmOrder = screen.getByRole("button", { name: /confirm order/i });
   await user.click(confirmOrder);
 
+  // chack that loading appears on the page while the server responds with the data
+  const loading = screen.getByRole("heading", { name: "Loading!" });
+  expect(loading).toBeInTheDocument();
+
+  // find the thank you message, which means the loading is done
+  const thankYouHeader = await screen.findByRole("heading", {
+    name: "Thank you!",
+  });
+  expect(thankYouHeader).toBeInTheDocument();
+
+  // check that the loading has disappeared the screen
+  const notLoading = screen.queryByText("loading");
+  expect(notLoading).not.toBeInTheDocument();
+
   // confirm order number on confirmation page
   const confirmationNumber = await screen.findByText(/order number/i);
   expect(confirmationNumber).toBeInTheDocument();
