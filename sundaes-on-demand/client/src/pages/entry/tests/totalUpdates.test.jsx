@@ -145,6 +145,7 @@ describe("grand total", () => {
     await user.click(cherriesCheckbox);
 
     // remove one vanilla scoop and check the grand total
+    await user.clear(vanillaButton);
     await user.type(vanillaButton, "1");
 
     expect(grandTotal).toHaveTextContent("3.50");

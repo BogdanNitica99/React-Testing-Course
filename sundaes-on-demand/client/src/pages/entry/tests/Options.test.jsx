@@ -1,4 +1,5 @@
 import { render, screen } from "../../../test-utils/testing-library-utils";
+import userEvent from "@testing-library/user-event";
 import Options from "../Options";
 
 test("displays image for each scoop option from server", async () => {
@@ -30,4 +31,29 @@ test("displays image for each topping option from server", async () => {
     "M&Ms topping",
     "Hot fudge topping",
   ]);
+});
+
+test("scoops total doesn't update for invalid input", async () => {
+  render(<Options optionType="scoops" />);
+
+  const user = userEvent.setup();
+
+  // check the total value starts at 0.00
+  const scoopsTotal = screen.getByText("Scoops total", { exact: false });
+  expect(scoopsTotal).toHaveTextContent("0.00");
+
+  // add invalid scoops input
+  const vanillaButton = await screen.findByRole("spinbutton", {
+    name: "Vanilla",
+  });
+  // clear the input to not have leading or trailing 0's
+  await user.clear(vanillaButton);
+  await user.type(vanillaButton, "-1");
+
+  expect(scoopsTotal).toHaveTextContent("0.00");
+
+  await user.clear(vanillaButton);
+  await user.type(vanillaButton, "1");
+
+  expect(scoopsTotal).toHaveTextContent("2.00");
 });
