@@ -2,11 +2,18 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useOrderDetails } from "../../contexts/OrderDetails";
+import AlertBanner from "../common/AlertBanner";
 
 export default function OrderConfirmation({ setPhase }) {
   const [orderNumber, setOrderNumber] = useState(null);
+  const [error, setError] = useState(false);
 
   const { resetOrder } = useOrderDetails();
+
+  const handleChange = () => {
+    resetOrder();
+    setPhase("inProgress");
+  };
 
   useEffect(() => {
     axios
@@ -15,19 +22,22 @@ export default function OrderConfirmation({ setPhase }) {
         setOrderNumber(response.data.orderNumber);
       })
       .catch((error) => {
-        console.error(error);
-        // To do
+        setError(true);
       });
   }, []);
+
+  if (error) {
+    return (
+      <>
+        <AlertBanner />
+        <button onClick={handleChange}>Create new order</button>
+      </>
+    );
+  }
 
   if (!orderNumber) {
     return <h1>Loading!</h1>;
   }
-
-  const handleChange = () => {
-    resetOrder();
-    setPhase("inProgress");
-  };
 
   return (
     <div>
