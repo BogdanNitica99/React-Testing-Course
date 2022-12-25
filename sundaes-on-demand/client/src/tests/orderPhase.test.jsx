@@ -8,7 +8,7 @@ test("order phases for happy path", async () => {
 
   const user = userEvent.setup();
 
-  // add ice cream scoops
+  // add vanilla scoops
   const vanillaButton = await screen.findByRole("spinbutton", {
     name: "Vanilla",
   });

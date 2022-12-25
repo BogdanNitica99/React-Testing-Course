@@ -5,6 +5,8 @@ import { formatCurrency } from "../../utilities";
 export default function OrderEntry({ setPhase }) {
   const { totals } = useOrderDetails();
 
+  const isButtonDisabled = totals.scoops === 0 ? true : false;
+
   const handleChange = () => {
     setPhase("review");
   };
@@ -14,7 +16,9 @@ export default function OrderEntry({ setPhase }) {
       <Options optionType="scoops" />
       <Options optionType="toppings" />
       <h1>Grand total: {formatCurrency(totals.scoops + totals.toppings)}</h1>
-      <button onClick={handleChange}>Order</button>
+      <button onClick={handleChange} disabled={isButtonDisabled}>
+        Order
+      </button>
     </div>
   );
 }
